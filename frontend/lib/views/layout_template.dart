@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 import 'package:edgevalue/widgets/centered_view.dart';
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar.dart';
 

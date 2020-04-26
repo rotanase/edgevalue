@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar_left_side_desktop.dart';
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar_right_side_desktop.dart';
 
