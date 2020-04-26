@@ -33,6 +33,13 @@ def random_integer() -> int:
     return random.randint(-99999999999, 99999999999)
 
 
+def random_isin() -> str:
+    return random_two_letters() + str(random.randint(0, 9999999999))
+
+
+def random_two_letters() -> str:
+    return random.choice(string.ascii_letters) + random.choice(string.ascii_letters) 
+
 def random_lower_string() -> str:
     return "".join(random.choices(string.ascii_lowercase, k=32))
 

@@ -5,10 +5,12 @@ from app.schemas.company import CompanyCreate
 from app.tests.utils.utils import random_lower_string
 from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_url
+from app.tests.utils.utils import random_isin
 
 
 def create_random_company(db: Session) -> models.Company:
     name = random_lower_string()
+    isin = random_isin()
     url = random_url()
     ticker = random_lower_string()
     ipo_date = random_date()
@@ -16,6 +18,7 @@ def create_random_company(db: Session) -> models.Company:
 
     company_in = CompanyCreate(       
         name=name,
+        isin=isin,
         url=url,
         ticker=ticker,
         ipo_date=ipo_date,

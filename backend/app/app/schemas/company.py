@@ -9,6 +9,7 @@ from app.schemas.financial_statement import FinancialStatement
 # Shared properties
 class CompanyBase(BaseModel):
     name: str = None
+    isin: str = None
     url: HttpUrl = None
     ticker: str = None
     ipo_date: date = None

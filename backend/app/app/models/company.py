@@ -13,6 +13,7 @@ class Company(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True)
+    isin = Column(String, unique=True)
     url = Column(String, unique=True)
     ticker = Column(String)
     ipo_date = Column(DateTime)

@@ -20,20 +20,18 @@ def test_create_financial_statement(db: Session) -> None:
     publish_date = random_date()
     end_date = random_date()
     audited = random_bool()
-    total_non_current_assets = random_integer()
-    total_current_assets = random_integer()
+    non_current_assets = random_integer()
+    current_assets = random_integer()
     total_assets = random_integer()
     total_equity = random_integer()
-    total_long_term_liabilities = random_integer()
-    total_current_liabilities = random_integer()
+    long_term_liabilities = random_integer()
+    current_liabilities = random_integer()
     total_liabilities = random_integer()
     total_equities_and_liabilities = random_integer()
     total_revenues = random_integer()
-    other_revenues = random_integer()
-    total_operating_expenses = random_integer()
-    operating_profit = random_integer()
-    net_financial_result = random_integer()
-    profit_before_income_tax = random_integer()
+    gross_profit = random_integer()
+    operating_income = random_integer()
+    profit_before_tax = random_integer()
     net_profit = random_integer()
     
     financial_statement_in = FinancialStatementCreate(       
@@ -43,20 +41,18 @@ def test_create_financial_statement(db: Session) -> None:
         publish_date=publish_date,
         end_date=end_date,
         audited=audited,
-        total_non_current_assets=total_non_current_assets,
-        total_current_assets=total_current_assets,
+        non_current_assets=non_current_assets,
+        current_assets=current_assets,
         total_assets=total_assets,
         total_equity=total_equity,
-        total_long_term_liabilities=total_long_term_liabilities,
-        total_current_liabilities=total_current_liabilities,
+        long_term_liabilities=long_term_liabilities,
+        current_liabilities=current_liabilities,
         total_liabilities=total_liabilities,
         total_equities_and_liabilities=total_equities_and_liabilities,
         total_revenues=total_revenues,
-        other_revenues=other_revenues,
-        total_operating_expenses=total_operating_expenses,
-        operating_profit=operating_profit,
-        net_financial_result=net_financial_result,
-        profit_before_income_tax=profit_before_income_tax,
+        gross_profit=gross_profit,
+        operating_income=operating_income,
+        profit_before_tax=profit_before_tax,
         net_profit=net_profit,
         company_id=company_id
         )
@@ -68,20 +64,18 @@ def test_create_financial_statement(db: Session) -> None:
     assert financial_statement.currency == currency
     assert financial_statement.url == url
     assert financial_statement.audited == audited
-    assert financial_statement.total_non_current_assets == total_non_current_assets
-    assert financial_statement.total_current_assets == total_current_assets
+    assert financial_statement.non_current_assets == non_current_assets
+    assert financial_statement.current_assets == current_assets
     assert financial_statement.total_assets == total_assets
     assert financial_statement.total_equity == total_equity
-    assert financial_statement.total_long_term_liabilities == total_long_term_liabilities
-    assert financial_statement.total_current_liabilities == total_current_liabilities
+    assert financial_statement.long_term_liabilities == long_term_liabilities
+    assert financial_statement.current_liabilities == current_liabilities
     assert financial_statement.total_liabilities == total_liabilities
     assert financial_statement.total_equities_and_liabilities == total_equities_and_liabilities
     assert financial_statement.total_revenues == total_revenues
-    assert financial_statement.other_revenues == other_revenues
-    assert financial_statement.total_operating_expenses == total_operating_expenses
-    assert financial_statement.operating_profit == operating_profit
-    assert financial_statement.net_financial_result == net_financial_result
-    assert financial_statement.profit_before_income_tax == profit_before_income_tax
+    assert financial_statement.gross_profit == gross_profit
+    assert financial_statement.operating_income == operating_income
+    assert financial_statement.profit_before_tax == profit_before_tax
     assert financial_statement.net_profit == net_profit
     assert financial_statement.company_id == company_id
 
@@ -95,20 +89,18 @@ def test_get_financial_statement(db: Session) -> None:
     publish_date = random_date()
     end_date = random_date()
     audited = random_bool()
-    total_non_current_assets = random_integer()
-    total_current_assets = random_integer()
+    non_current_assets = random_integer()
+    current_assets = random_integer()
     total_assets = random_integer()
     total_equity = random_integer()
-    total_long_term_liabilities = random_integer()
-    total_current_liabilities = random_integer()
+    long_term_liabilities = random_integer()
+    current_liabilities = random_integer()
     total_liabilities = random_integer()
     total_equities_and_liabilities = random_integer()
     total_revenues = random_integer()
-    other_revenues = random_integer()
-    total_operating_expenses = random_integer()
-    operating_profit = random_integer()
-    net_financial_result = random_integer()
-    profit_before_income_tax = random_integer()
+    gross_profit = random_integer()
+    operating_income = random_integer()
+    profit_before_tax = random_integer()
     net_profit = random_integer()
 
     financial_statement_in = FinancialStatementCreate(       
@@ -118,20 +110,18 @@ def test_get_financial_statement(db: Session) -> None:
         publish_date=publish_date,
         end_date=end_date,
         audited=audited,
-        total_non_current_assets=total_non_current_assets,
-        total_current_assets=total_current_assets,
+        non_current_assets=non_current_assets,
+        current_assets=current_assets,
         total_assets=total_assets,
         total_equity=total_equity,
-        total_long_term_liabilities=total_long_term_liabilities,
-        total_current_liabilities=total_current_liabilities,
+        long_term_liabilities=long_term_liabilities,
+        current_liabilities=current_liabilities,
         total_liabilities=total_liabilities,
         total_equities_and_liabilities=total_equities_and_liabilities,
         total_revenues=total_revenues,
-        other_revenues=other_revenues,
-        total_operating_expenses=total_operating_expenses,
-        operating_profit=operating_profit,
-        net_financial_result=net_financial_result,
-        profit_before_income_tax=profit_before_income_tax,
+        gross_profit=gross_profit,
+        operating_income=operating_income,
+        profit_before_tax=profit_before_tax,
         net_profit=net_profit,
         company_id=company_id
         )
@@ -145,20 +135,18 @@ def test_get_financial_statement(db: Session) -> None:
     assert financial_statement.publish_date == stored_financial_statement.publish_date
     assert financial_statement.end_date == stored_financial_statement.end_date
     assert financial_statement.audited == stored_financial_statement.audited
-    assert financial_statement.total_non_current_assets == stored_financial_statement.total_non_current_assets
-    assert financial_statement.total_current_assets == stored_financial_statement.total_current_assets
+    assert financial_statement.non_current_assets == stored_financial_statement.non_current_assets
+    assert financial_statement.current_assets == stored_financial_statement.current_assets
     assert financial_statement.total_assets == stored_financial_statement.total_assets
     assert financial_statement.total_equity == stored_financial_statement.total_equity
-    assert financial_statement.total_long_term_liabilities == stored_financial_statement.total_long_term_liabilities
-    assert financial_statement.total_current_liabilities == stored_financial_statement.total_current_liabilities
+    assert financial_statement.long_term_liabilities == stored_financial_statement.long_term_liabilities
+    assert financial_statement.current_liabilities == stored_financial_statement.current_liabilities
     assert financial_statement.total_liabilities == stored_financial_statement.total_liabilities
     assert financial_statement.total_equities_and_liabilities == stored_financial_statement.total_equities_and_liabilities
     assert financial_statement.total_revenues == stored_financial_statement.total_revenues
-    assert financial_statement.other_revenues == stored_financial_statement.other_revenues
-    assert financial_statement.total_operating_expenses == stored_financial_statement.total_operating_expenses
-    assert financial_statement.operating_profit == stored_financial_statement.operating_profit
-    assert financial_statement.net_financial_result == stored_financial_statement.net_financial_result
-    assert financial_statement.profit_before_income_tax == stored_financial_statement.profit_before_income_tax
+    assert financial_statement.gross_profit == stored_financial_statement.gross_profit
+    assert financial_statement.operating_income == stored_financial_statement.operating_income
+    assert financial_statement.profit_before_tax == stored_financial_statement.profit_before_tax
     assert financial_statement.net_profit == stored_financial_statement.net_profit
     assert financial_statement.company_id == stored_financial_statement.company_id
 
@@ -172,20 +160,18 @@ def test_update_financial_statement(db: Session) -> None:
     publish_date = random_date()
     end_date = random_date()
     audited = random_bool()
-    total_non_current_assets = random_integer()
-    total_current_assets = random_integer()
+    non_current_assets = random_integer()
+    current_assets = random_integer()
     total_assets = random_integer()
     total_equity = random_integer()
-    total_long_term_liabilities = random_integer()
-    total_current_liabilities = random_integer()
+    long_term_liabilities = random_integer()
+    current_liabilities = random_integer()
     total_liabilities = random_integer()
     total_equities_and_liabilities = random_integer()
     total_revenues = random_integer()
-    other_revenues = random_integer()
-    total_operating_expenses = random_integer()
-    operating_profit = random_integer()
-    net_financial_result = random_integer()
-    profit_before_income_tax = random_integer()
+    gross_profit = random_integer()
+    operating_income = random_integer()
+    profit_before_tax = random_integer()
     net_profit = random_integer()
     
     financial_statement_in = FinancialStatementCreate(       
@@ -195,20 +181,18 @@ def test_update_financial_statement(db: Session) -> None:
         publish_date=publish_date,
         end_date=end_date,
         audited=audited,
-        total_non_current_assets=total_non_current_assets,
-        total_current_assets=total_current_assets,
+        non_current_assets=non_current_assets,
+        current_assets=current_assets,
         total_assets=total_assets,
         total_equity=total_equity,
-        total_long_term_liabilities=total_long_term_liabilities,
-        total_current_liabilities=total_current_liabilities,
+        long_term_liabilities=long_term_liabilities,
+        current_liabilities=current_liabilities,
         total_liabilities=total_liabilities,
         total_equities_and_liabilities=total_equities_and_liabilities,
         total_revenues=total_revenues,
-        other_revenues=other_revenues,
-        total_operating_expenses=total_operating_expenses,
-        operating_profit=operating_profit,
-        net_financial_result=net_financial_result,
-        profit_before_income_tax=profit_before_income_tax,
+        gross_profit=gross_profit,
+        operating_income=operating_income,
+        profit_before_tax=profit_before_tax,
         net_profit=net_profit,
         company_id=company_id
         )
@@ -220,7 +204,7 @@ def test_update_financial_statement(db: Session) -> None:
     url2 = random_url()
     end_date2 = random_date()
     audited2 = random_bool()
-    total_non_current_assets2 = random_integer()
+    non_current_assets2 = random_integer()
     
     financial_statement_update = FinancialStatementUpdate(
         period=period2,
@@ -228,7 +212,7 @@ def test_update_financial_statement(db: Session) -> None:
         url=url2,
         end_date=end_date2,
         audited=audited2,
-        total_non_current_assets=total_non_current_assets2
+        non_current_assets=non_current_assets2
         )
     financial_statement2 = crud.financial_statement.update(db=db, db_obj=financial_statement, obj_in=financial_statement_update)
     assert financial_statement.publish_date.strftime("%Y-%m-%d") == financial_statement2.publish_date.strftime("%Y-%m-%d")
@@ -238,20 +222,18 @@ def test_update_financial_statement(db: Session) -> None:
     assert financial_statement2.currency == currency2
     assert financial_statement2.url == url2
     assert financial_statement2.audited == audited2
-    assert financial_statement2.total_non_current_assets == total_non_current_assets2
-    assert financial_statement.total_current_assets == financial_statement2.total_current_assets
+    assert financial_statement2.non_current_assets == non_current_assets2
+    assert financial_statement.current_assets == financial_statement2.current_assets
     assert financial_statement.total_assets == financial_statement2.total_assets
     assert financial_statement.total_equity == financial_statement2.total_equity
-    assert financial_statement.total_long_term_liabilities == financial_statement2.total_long_term_liabilities
-    assert financial_statement.total_current_liabilities == financial_statement2.total_current_liabilities
+    assert financial_statement.long_term_liabilities == financial_statement2.long_term_liabilities
+    assert financial_statement.current_liabilities == financial_statement2.current_liabilities
     assert financial_statement.total_liabilities == financial_statement2.total_liabilities
     assert financial_statement.total_equities_and_liabilities == financial_statement2.total_equities_and_liabilities
     assert financial_statement.total_revenues == financial_statement2.total_revenues
-    assert financial_statement.other_revenues == financial_statement2.other_revenues
-    assert financial_statement.total_operating_expenses == financial_statement2.total_operating_expenses
-    assert financial_statement.operating_profit == financial_statement2.operating_profit
-    assert financial_statement.net_financial_result == financial_statement2.net_financial_result
-    assert financial_statement.profit_before_income_tax == financial_statement2.profit_before_income_tax
+    assert financial_statement.gross_profit == financial_statement2.gross_profit
+    assert financial_statement.operating_income == financial_statement2.operating_income
+    assert financial_statement.profit_before_tax == financial_statement2.profit_before_tax
     assert financial_statement.net_profit == financial_statement2.net_profit
     assert financial_statement2.company_id == financial_statement2.company_id
 
@@ -265,20 +247,18 @@ def test_delete_financial_statement(db: Session) -> None:
     publish_date = random_date()
     end_date = random_date()
     audited = random_bool()
-    total_non_current_assets = random_integer()
-    total_current_assets = random_integer()
+    non_current_assets = random_integer()
+    current_assets = random_integer()
     total_assets = random_integer()
     total_equity = random_integer()
-    total_long_term_liabilities = random_integer()
-    total_current_liabilities = random_integer()
+    long_term_liabilities = random_integer()
+    current_liabilities = random_integer()
     total_liabilities = random_integer()
     total_equities_and_liabilities = random_integer()
     total_revenues = random_integer()
-    other_revenues = random_integer()
-    total_operating_expenses = random_integer()
-    operating_profit = random_integer()
-    net_financial_result = random_integer()
-    profit_before_income_tax = random_integer()
+    gross_profit = random_integer()
+    operating_income = random_integer()
+    profit_before_tax = random_integer()
     net_profit = random_integer()
 
     financial_statement_in = FinancialStatementCreate(       
@@ -288,20 +268,18 @@ def test_delete_financial_statement(db: Session) -> None:
         publish_date=publish_date,
         end_date=end_date,
         audited=audited,
-        total_non_current_assets=total_non_current_assets,
-        total_current_assets=total_current_assets,
+        non_current_assets=non_current_assets,
+        current_assets=current_assets,
         total_assets=total_assets,
         total_equity=total_equity,
-        total_long_term_liabilities=total_long_term_liabilities,
-        total_current_liabilities=total_current_liabilities,
+        long_term_liabilities=long_term_liabilities,
+        current_liabilities=current_liabilities,
         total_liabilities=total_liabilities,
         total_equities_and_liabilities=total_equities_and_liabilities,
         total_revenues=total_revenues,
-        other_revenues=other_revenues,
-        total_operating_expenses=total_operating_expenses,
-        operating_profit=operating_profit,
-        net_financial_result=net_financial_result,
-        profit_before_income_tax=profit_before_income_tax,
+        gross_profit=gross_profit,
+        operating_income=operating_income,
+        profit_before_tax=profit_before_tax,
         net_profit=net_profit,
         company_id=company_id
         )
@@ -316,19 +294,17 @@ def test_delete_financial_statement(db: Session) -> None:
     assert financial_statement2.currency == currency
     assert financial_statement2.url == url
     assert financial_statement2.audited == audited
-    assert financial_statement2.total_non_current_assets == total_non_current_assets
-    assert financial_statement2.total_current_assets == total_current_assets
+    assert financial_statement2.non_current_assets == non_current_assets
+    assert financial_statement2.current_assets == current_assets
     assert financial_statement2.total_assets == total_assets
     assert financial_statement2.total_equity == total_equity
-    assert financial_statement2.total_long_term_liabilities == total_long_term_liabilities
-    assert financial_statement2.total_current_liabilities == total_current_liabilities
+    assert financial_statement2.long_term_liabilities == long_term_liabilities
+    assert financial_statement2.current_liabilities == current_liabilities
     assert financial_statement2.total_liabilities == total_liabilities
     assert financial_statement2.total_equities_and_liabilities == total_equities_and_liabilities
     assert financial_statement2.total_revenues == total_revenues
-    assert financial_statement2.other_revenues == other_revenues
-    assert financial_statement2.total_operating_expenses == total_operating_expenses
-    assert financial_statement2.operating_profit == operating_profit
-    assert financial_statement2.net_financial_result == net_financial_result
-    assert financial_statement2.profit_before_income_tax == profit_before_income_tax
+    assert financial_statement2.gross_profit == gross_profit
+    assert financial_statement2.operating_income == operating_income
+    assert financial_statement2.profit_before_tax == profit_before_tax
     assert financial_statement2.net_profit == net_profit
     assert financial_statement2.company_id == company_id

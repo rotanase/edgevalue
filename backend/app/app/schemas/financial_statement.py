@@ -15,20 +15,18 @@ class FinancialStatementBase(BaseModel):
     url: HttpUrl = None
     audited: bool = None
     currency: CurrencyEnum = None
-    total_non_current_assets: int = None 
-    total_current_assets: int = None
+    non_current_assets: int = None 
+    current_assets: int = None
     total_assets: int = None
     total_equity: int = None
-    total_long_term_liabilities: int = None
-    total_current_liabilities: int = None
+    long_term_liabilities: int = None
+    current_liabilities: int = None
     total_liabilities: int = None
     total_equities_and_liabilities: int = None
     total_revenues: int = None
-    other_revenues: int = None
-    total_operating_expenses: float = None
-    operating_profit: int = None
-    net_financial_result: int = None
-    profit_before_income_tax: int = None
+    gross_profit: float = None
+    operating_income: int = None
+    profit_before_tax: int = None
     net_profit: int = None
 
     company_id: int = None
