@@ -6,8 +6,8 @@ class NavigationBarLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 130,
-      width: 200,
+      height: 80,
+      width: 150,
       child: Image.asset('assets/logo.png'),
     );
   }

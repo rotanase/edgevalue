@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'navigation_bar_item_desktop.dart';
-import 'navigation_bar_logo.dart';
+import 'package:edgevalue/widgets/navigation_bar/navigation_bar_left_side_desktop.dart';
+import 'package:edgevalue/widgets/navigation_bar/navigation_bar_right_side_desktop.dart';
 
 class NavigationBarDesktop extends StatelessWidget {
   const NavigationBarDesktop({Key key}) : super(key: key);
@@ -9,20 +9,12 @@ class NavigationBarDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 60,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          NavigationBarLogo(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              NavigationBarItemDesktop(title: 'Ceva 1'),
-              SizedBox(width: 60),
-              NavigationBarItemDesktop(title: 'Ceva 2'),
-              SizedBox(width: 60),
-              NavigationBarItemDesktop(title: 'Ceva 3'),
-            ],
-          ),
+          NavigationBarLeftSide(),
+          NavigationBarRightSide(),
         ],
       ),
     );
