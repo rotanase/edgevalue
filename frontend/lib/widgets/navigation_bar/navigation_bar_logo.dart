@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NavigationBarLogo extends StatelessWidget {
+class NavigationBarLogo extends StatefulWidget {
   const NavigationBarLogo({Key key}) : super(key: key);
 
+  @override
+  _NavigationBarLogoState createState() => _NavigationBarLogoState();
+}
+
+class _NavigationBarLogoState extends State<NavigationBarLogo> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

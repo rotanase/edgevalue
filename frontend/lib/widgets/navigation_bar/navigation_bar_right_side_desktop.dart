@@ -3,7 +3,12 @@ import 'package:edgevalue/localization/app_translations.dart';
 
 import 'navigation_bar_item_desktop.dart';
 
-class NavigationBarRightSide extends StatelessWidget {
+class NavigationBarRightSide extends StatefulWidget {
+  @override
+  _NavigationBarRightSideState createState() => _NavigationBarRightSideState();
+}
+
+class _NavigationBarRightSideState extends State<NavigationBarRightSide> {
   @override
   Widget build(BuildContext context) {
     return Padding(

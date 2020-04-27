@@ -1,4 +1,7 @@
 {
     "app_title": "Edge Value",
-    "login": "Login"
+    "login": "Login",
+    "search_bar_initial_text": "Search for a ticker",
+    "cancel_search_text": "Cancel",
+    "no_search_result_text": "No results found"
 }

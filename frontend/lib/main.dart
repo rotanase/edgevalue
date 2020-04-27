@@ -5,7 +5,12 @@ import 'package:edgevalue/localization/app_translations.dart';
 
 void main() => runApp(EdgeValue());
 
-class EdgeValue extends StatelessWidget {
+class EdgeValue extends StatefulWidget {
+  @override
+  _EdgeValueState createState() => _EdgeValueState();
+}
+
+class _EdgeValueState extends State<EdgeValue> {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Edge Value',

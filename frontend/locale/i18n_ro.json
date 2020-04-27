@@ -1,4 +1,7 @@
 {
     "app_title": "Edge Value",
-    "login": "Autentificare"
+    "login": "Autentificare",
+    "search_bar_initial_text": "Caută simbol",
+    "cancel_search_text": "Anulează",
+    "no_search_result_text": "Nu a fost găsit niciun rezultat"
 }
