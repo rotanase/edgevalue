@@ -38,7 +38,7 @@ def test_create_company(client: TestClient, db: Session) -> None:
 def test_read_company(client: TestClient, db: Session) -> None:
     company = create_random_company(db)
     
-    response = client.post(f"{settings.API_V1_STR}/companies/{company.id}")
+    response = client.get(f"{settings.API_V1_STR}/companies/{company.id}")
 
     assert response.status_code == 200
     content = response.json()

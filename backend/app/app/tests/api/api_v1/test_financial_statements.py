@@ -62,7 +62,7 @@ def test_create_financial_statement(client: TestClient, db: Session) -> None:
 def test_read_financial_statement(client: TestClient, db: Session) -> None:
     financial_statement = create_random_financial_statement(db)
     
-    response = client.post(f"{settings.API_V1_STR}/financialstatements/{financial_statement.id}")
+    response = client.get(f"{settings.API_V1_STR}/financialstatements/{financial_statement.id}")
     
     assert response.status_code == 200
     content = response.json()
