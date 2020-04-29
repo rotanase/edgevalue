@@ -29,6 +29,10 @@ def random_bool() -> bool:
     return random.choice([True, False])
 
 
+def random_dividend_payout() -> float:
+    return random.uniform(0, 20)
+
+
 def random_integer() -> int:
     return random.randint(-99999999999, 99999999999)
 

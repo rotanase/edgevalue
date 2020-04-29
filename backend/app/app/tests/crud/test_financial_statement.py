@@ -235,7 +235,7 @@ def test_update_financial_statement(db: Session) -> None:
     assert financial_statement.operating_income == financial_statement2.operating_income
     assert financial_statement.profit_before_tax == financial_statement2.profit_before_tax
     assert financial_statement.net_profit == financial_statement2.net_profit
-    assert financial_statement2.company_id == financial_statement2.company_id
+    assert financial_statement.company_id == financial_statement2.company_id
 
 
 def test_delete_financial_statement(db: Session) -> None:

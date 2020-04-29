@@ -34,5 +34,4 @@ class FinancialStatement(Base):
     net_profit = Column(BigInteger)
     
     company_id = Column(Integer, ForeignKey("company.id"))
-    
     company = relationship("Company", back_populates="financial_statements")
