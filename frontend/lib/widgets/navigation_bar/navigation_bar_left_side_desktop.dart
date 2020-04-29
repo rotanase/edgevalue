@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:edgevalue/widgets/search_bar/search_bar.dart';
-
 import 'navigation_bar_logo.dart';
 import 'navigation_bar_item_desktop.dart';
 
-class NavigationBarLeftSide extends StatefulWidget {
-  @override
-  _NavigationBarLeftSideState createState() => _NavigationBarLeftSideState();
-}
-
-class _NavigationBarLeftSideState extends State<NavigationBarLeftSide> {
+class NavigationBarLeftSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(

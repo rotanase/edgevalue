@@ -3,14 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:edgevalue/widgets/centered_view.dart';
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar.dart';
 
-class LayoutTemplate extends StatefulWidget {
-  const LayoutTemplate({Key key}) : super(key: key);
-
-  @override
-  _LayoutTemplateState createState() => _LayoutTemplateState();
-}
-
-class _LayoutTemplateState extends State<LayoutTemplate> {
+class LayoutTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(

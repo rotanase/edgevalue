@@ -33,7 +33,6 @@ dependencies:
 
   # Extra dependencies
   responsive_builder: ^0.1.2
-  flappy_search_bar: ^1.7.2
 
 dev_dependencies:
   flutter_test:
