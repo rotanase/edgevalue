@@ -5,7 +5,7 @@ class NavigationBarItemDesktop extends StatelessWidget {
 
   final String title;
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Text(
       title,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'navigation_bar_desktop.dart';
+import 'package:edgevalue/widgets/search_bar/search_bar_desktop.dart';
 
-class NavigationBar extends StatelessWidget {
+class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      // TODO: mobile navigation bar
-      desktop: NavigationBarDesktop(),
+      // TODO: mobile implementation
+      desktop: SearchBarDesktop(),
     );
   }
 }

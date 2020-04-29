@@ -4,8 +4,6 @@ import 'package:edgevalue/widgets/centered_view.dart';
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar.dart';
 
 class LayoutTemplate extends StatelessWidget {
-  const LayoutTemplate({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(

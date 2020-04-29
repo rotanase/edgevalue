@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -40,7 +39,7 @@ class TranslationsDelegate extends LocalizationsDelegate<Translations> {
   // Temporary app language can only be modified here, replace `locale`
   // with `Locale('en')` or `Locale('ro')`.
   @override
-  Future<Translations> load(Locale locale) => Translations.load(locale/* replace here */);
+  Future<Translations> load(Locale locale) => Translations.load(Locale('ro')/* replace here */);
 
   @override
   bool shouldReload(TranslationsDelegate old) => false;
