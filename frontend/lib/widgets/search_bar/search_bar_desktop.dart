@@ -122,7 +122,6 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
         onChanged: (tickerToSearch) {
           _waitingForResults = true;
           _showResultsOverlayEntry();
-          print ('Hello1');
           _resultsViewModel.getSearchResults(tickerToSearch, () {
             _waitingForResults = false;
             _resultsOverlayEntry?.markNeedsBuild();

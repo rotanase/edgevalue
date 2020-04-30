@@ -18,6 +18,13 @@ class CompanyItemModel extends StatefulWidget {
   final String name, ticker, isin;
   final Color color, hoverColor;
 
+  bool matches(String pattern) {
+    pattern = pattern.toLowerCase();
+    return name.toLowerCase().contains(pattern) ||
+      ticker.toLowerCase().contains(pattern) ||
+      isin.toLowerCase().contains(pattern);
+  }
+
   @override
   _CompanyItemModelState createState() => _CompanyItemModelState();
 }

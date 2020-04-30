@@ -9,28 +9,22 @@ class SearchResultsViewModel {
   ListView _searchResults;
   ListView get searchResults => _searchResults;
 
-  // As of now, filter of the companies is done in frontend.
-  Future getSearchResults(String pattern, Function notifyCallback) async {
-    print ('Hello2');
+  Future getSearchResults(String patternToSearch, Function notifyCallback) async {
     List<CompanyItemModel> companies = await _api.getCompanies();
-
-    print ('Hello3');
-    if (companies != null) {
-      print ('Hello4');
-      companies = companies.map((company) =>
-        company.name.contains(pattern) ||
-        company.ticker.contains(pattern) ||
-        company.isin.contains(pattern) ? company : null,
-      );
-      
-      _searchResults = ListView.builder(
-        itemCount: companies.length,
-        itemBuilder: (BuildContext context, int index) {
-          return companies[index];
-        },
-      );
-    }
-
+    /*
+     * Build `_searchResults` by filtering companies list
+     * using `patternToSearch` string. As of now, filtering
+     * is done in frontend.
+     */
+    _searchResults = ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemCount: companies.length,
+      itemBuilder: (BuildContext context, int index) {
+        CompanyItemModel company = companies[index];
+        return company.matches(patternToSearch) ? company : Container(width: 0, height: 0);
+      },
+    );
     notifyCallback();
   }
 }
