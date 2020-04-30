@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:edgevalue/views/layout_template.dart';
 import 'package:edgevalue/localization/app_translations.dart';
+import 'package:edgevalue/locator.dart';
 
-void main() => runApp(EdgeValue());
+void main() {
+  setupLocator();
+  runApp(EdgeValue());
+}
 
 class EdgeValue extends StatefulWidget {
   @override

@@ -3,5 +3,6 @@
     "login": "Autentificare",
     "search_bar_initial_text": "Caută simbol",
     "cancel_search_text": "Anulează",
-    "no_search_result_text": "Nu a fost găsit niciun rezultat"
+    "no_search_result_text": "Nu a fost găsit niciun rezultat",
+    "data_could_not_be_fetched": "Datele nu au fost găsite"
 }

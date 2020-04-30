@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 
-class BetterListTile extends StatefulWidget {
-  BetterListTile({
-    this.title = '',
-    this.subtitle = '',
-    this.secondSubtitle = '',
+class CompanyItemModel extends StatefulWidget {
+  CompanyItemModel({
+    this.name = '',
+    this.ticker = '',
+    this.isin = '',
     this.color = Colors.white,
-    this.hoverColor = Colors.lightBlue,
+    this.hoverColor = const Color(0xFFE0E0E0), // grey[300]
   });
 
-  final String title, subtitle, secondSubtitle;
+  CompanyItemModel.fromJson(Map<String, dynamic> map) : this(
+    name: map['name'],
+    ticker: map['ticker'],
+    isin: map['isin'],
+  );
+
+  final String name, ticker, isin;
   final Color color, hoverColor;
 
   @override
-  _BetterListTileState createState() => _BetterListTileState();
+  _CompanyItemModelState createState() => _CompanyItemModelState();
 }
 
-class _BetterListTileState extends State<BetterListTile> {
+class _CompanyItemModelState extends State<CompanyItemModel> {
   Color _currentColor;
 
   void _updateCurrentColor(bool mouseHover) {
@@ -39,8 +45,8 @@ class _BetterListTileState extends State<BetterListTile> {
       child: Ink(
         color: _currentColor,
         child: ListTile(
-          title: Text(widget.title),
-          subtitle: Text(widget.subtitle + ' / ' + widget.secondSubtitle),
+          title: Text(widget.name),
+          subtitle: Text('Ticker: ${widget.ticker} / ISIN: ${widget.isin}'),
         ),
       ),
     );

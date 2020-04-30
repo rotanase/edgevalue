@@ -3,5 +3,6 @@
     "login": "Login",
     "search_bar_initial_text": "Search for a ticker",
     "cancel_search_text": "Cancel",
-    "no_search_result_text": "No results found"
+    "no_search_result_text": "No results found",
+    "data_could_not_be_fetched": "Data could not be fetched"
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:edgevalue/localization/app_translations.dart';
-import 'package:edgevalue/widgets/search_bar/better_list_tile.dart';
+import 'package:edgevalue/viewmodels/search_results_view_model.dart';
 
 class SearchBarDesktop extends StatefulWidget {
   @override
@@ -9,21 +9,33 @@ class SearchBarDesktop extends StatefulWidget {
 
 class _SearchBarDesktopState extends State<SearchBarDesktop> {
 
-  // An overlay in which search results are shown.
-  OverlayEntry _overlayEntry;
-
-  // Controller for the text field widget of this search bar.
-  final TextEditingController _textEditingController = TextEditingController();
-
-  // Focus node used to hide `_overlayEntry` when SearchBar looses focus.
+  // Used to hide `_resultsOverlay` when this search bar looses focus.
   final FocusNode _focusNode = FocusNode();
 
+  // Used for the text field widget of this search bar.
+  final TextEditingController _textEditingController = TextEditingController();
+
+  // Used as the ViewModel for this search bar.
+  final SearchResultsViewModel _resultsViewModel = SearchResultsViewModel();
+
+  // An overlay in which search results are shown.
+  OverlayEntry _resultsOverlayEntry;
+  bool _waitingForResults = true;
+
   /*
-   * This is a helper method, it creates an overlay entry
-   * with search results for the `searchedString`. It is
-   * called by _showSearchResults().
+   * Helper method to remove `_resultsOverlayEntry`.
+   * Always set it to null if you delete it otherwise.
    */
-  OverlayEntry _createOverlayEntry(String searchedString) {
+  void _removeResultsOverlayEntry() {
+    _resultsOverlayEntry?.remove();
+    _resultsOverlayEntry = null;
+  }
+
+  /*
+   * Helper method, it creates an overlay entry which contains
+   * search results. Called by _showResultsOverlayEntry().
+   */
+  OverlayEntry _createResultsOverlayEntry() {
     RenderBox rBox = context.findRenderObject();
     Offset rBoxOffset = rBox.localToGlobal(Offset.zero);
     Size rBoxSize = rBox.size;
@@ -35,61 +47,28 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
         width: rBoxSize.width * 1.5,
         child: Material(
           elevation: 4.0,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            children: <Widget>[
-              BetterListTile(
-                title: 'Banca Transilvania',
-                subtitle: 'Simbol: TLV',
-                secondSubtitle: 'ISIN: 1231242323',
-                hoverColor: Colors.grey[300],
-              ),
-              BetterListTile(
-                title: 'OMV Petrom',
-                subtitle: 'Simbol: SNP',
-                secondSubtitle: 'ISIN: 1231242323',
-                hoverColor: Colors.grey[300],
-              ),
-              BetterListTile(
-                title: 'Transgaz',
-                subtitle: 'Simbol: SNG',
-                secondSubtitle: 'ISIN: 1231242323',
-                hoverColor: Colors.grey[300],
-              ),
-            ],
-          ),
+          child: _waitingForResults ? LinearProgressIndicator() :
+          (_resultsViewModel?.searchResults ?? LinearProgressIndicator()),
         ),
       ),
     );
   }
 
   /*
-   * Helper function to remove _overlayEntry.
-   * Always set it to null if you will delete it otherwise.
+   * Creates / Updates the results overlay, or remove it
+   * if there is no input string from the user.
    */
-  void _removeOverlayEntryIfPresent() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-  }
-
-  void _showSearchResults(String tickerToSearch) {
-    _removeOverlayEntryIfPresent();
-    
-    if (tickerToSearch?.isNotEmpty ?? false) {
-      _overlayEntry = _createOverlayEntry(tickerToSearch);
-      Overlay.of(context).insert(_overlayEntry);
+  void _showResultsOverlayEntry() {
+    if (_textEditingController.text.isNotEmpty) {
+      if (_resultsOverlayEntry == null) {
+        _resultsOverlayEntry = _createResultsOverlayEntry();
+        Overlay.of(context).insert(_resultsOverlayEntry);
+      } else {
+        _resultsOverlayEntry.markNeedsBuild();
+      }
+    } else {
+      _removeResultsOverlayEntry();
     }
-  }
-
-  OutlineInputBorder _searchBarOutlineBoder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(100),
-      borderSide: BorderSide(
-        color: Colors.grey[700],
-        width: 0.5,
-      ),
-    );
   }
 
   @override
@@ -97,18 +76,29 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
     super.initState();
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
-        _showSearchResults(_textEditingController.text);
+        _showResultsOverlayEntry();
       } else {
-        _removeOverlayEntryIfPresent();
+        _removeResultsOverlayEntry();
       }
     });
   }
 
   @override
   void dispose() {
-    _removeOverlayEntryIfPresent();
+    _removeResultsOverlayEntry();
     _textEditingController.dispose();
     super.dispose();
+  }
+
+  // Helper method for `build()`.
+  OutlineInputBorder _searchBarOutlineBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(100),
+      borderSide: BorderSide(
+        color: Colors.grey[700],
+        width: 0.5,
+      ),
+    );
   }
 
   @override
@@ -125,11 +115,19 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
             Icons.search,
             color: Colors.grey[600],
           ),
-          enabledBorder: _searchBarOutlineBoder(),
-          focusedBorder: _searchBarOutlineBoder(),
+          enabledBorder: _searchBarOutlineBorder(),
+          focusedBorder: _searchBarOutlineBorder(),
           hintText: Translations.of(context).text('search_bar_initial_text'),
         ),
-        onChanged: _showSearchResults,
+        onChanged: (tickerToSearch) {
+          _waitingForResults = true;
+          _showResultsOverlayEntry();
+          print ('Hello1');
+          _resultsViewModel.getSearchResults(tickerToSearch, () {
+            _waitingForResults = false;
+            _resultsOverlayEntry?.markNeedsBuild();
+          });
+        },
         focusNode: _focusNode,
         controller: _textEditingController,
       ),

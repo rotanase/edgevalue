@@ -33,6 +33,10 @@ dependencies:
 
   # Extra dependencies
   responsive_builder: ^0.1.2
+  provider_architecture:
+  provider: ^4.0.5+1
+  get_it: ^4.0.2
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:
