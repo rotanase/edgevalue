@@ -30,7 +30,7 @@ def test_create_financial_statement(client: TestClient, db: Session) -> None:
         "gross_profit": random_integer(),
         "operating_income": random_integer(),
         "profit_before_tax": random_integer(),
-        "net_profit": random_integer()
+        "net_income": random_integer()
         }
 
     response = client.post(f"{settings.API_V1_STR}/financialstatements/", json=data)
@@ -55,7 +55,7 @@ def test_create_financial_statement(client: TestClient, db: Session) -> None:
     assert content["gross_profit"] == data["gross_profit"]
     assert content["operating_income"] == data["operating_income"]
     assert content["profit_before_tax"] == data["profit_before_tax"]
-    assert content["net_profit"] == data["net_profit"]
+    assert content["net_income"] == data["net_income"]
     assert "id" in content
 
 
@@ -84,5 +84,5 @@ def test_read_financial_statement(client: TestClient, db: Session) -> None:
     assert content["gross_profit"] == financial_statement.gross_profit
     assert content["operating_income"] == financial_statement.operating_income
     assert content["profit_before_tax"] == financial_statement.profit_before_tax
-    assert content["net_profit"] == financial_statement.net_profit
+    assert content["net_income"] == financial_statement.net_income
     assert content["id"] == financial_statement.id

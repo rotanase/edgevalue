@@ -5,21 +5,26 @@ from datetime import date
 from pydantic import BaseModel, HttpUrl
 
 from app.schemas.financial_statement import FinancialStatement
+from app.schemas.dividend import Dividend
+
 
 # Shared properties
 class CompanyBase(BaseModel):
     name: str = None
     isin: str = None
+    number_of_shares: int = None
     url: HttpUrl = None
     ticker: str = None
     ipo_date: date = None
     stock_exchange: str = None
     financial_statements: List[FinancialStatement] = []
-    
+    dividends: List[Dividend] = []
+
 
 # Properties to receive on company creation
 class CompanyCreate(CompanyBase):
     pass
+
 
 # Properties to receive on company update
 class CompanyUpdate(CompanyBase):

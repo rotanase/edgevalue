@@ -7,11 +7,13 @@ from app.tests.utils.utils import random_lower_string
 from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_url
 from app.tests.utils.utils import random_isin
+from app.tests.utils.utils import random_number_of_shares
 
 
 def test_create_company(db: Session) -> None:
     name = random_lower_string()
     isin = random_isin()
+    number_of_shares = random_number_of_shares()
     url = random_url()
     ticker = random_lower_string()
     ipo_date = random_date()
@@ -20,6 +22,7 @@ def test_create_company(db: Session) -> None:
     company_in = CompanyCreate(       
         name=name,
         isin=isin,
+        number_of_shares=number_of_shares,
         url=url,
         ticker=ticker,
         ipo_date=ipo_date,
@@ -28,6 +31,7 @@ def test_create_company(db: Session) -> None:
     company = crud.company.create(db=db, obj_in=company_in)
     assert company.name == name
     assert company.isin == isin
+    assert company.number_of_shares == number_of_shares
     assert company.url == url
     assert company.ticker == ticker
     assert company.ipo_date.strftime("%Y-%m-%d") == ipo_date.strftime("%Y-%m-%d")
@@ -37,6 +41,7 @@ def test_create_company(db: Session) -> None:
 def test_get_company(db: Session) -> None:
     name = random_lower_string()
     isin = random_isin()
+    number_of_shares = random_number_of_shares()
     url = random_url()
     ticker = random_lower_string()
     ipo_date = random_date()
@@ -45,6 +50,7 @@ def test_get_company(db: Session) -> None:
     company_in = CompanyCreate(       
         name=name,
         isin=isin,
+        number_of_shares=number_of_shares,
         url=url,
         ticker=ticker,
         ipo_date=ipo_date,
@@ -55,6 +61,7 @@ def test_get_company(db: Session) -> None:
     assert company.id == stored_company.id
     assert company.name == stored_company.name
     assert company.isin == stored_company.isin
+    assert company.number_of_shares == stored_company.number_of_shares
     assert company.url == stored_company.url
     assert company.ticker == stored_company.ticker
     assert company.ipo_date.strftime("%Y-%m-%d") == stored_company.ipo_date.strftime("%Y-%m-%d")
@@ -64,6 +71,7 @@ def test_get_company(db: Session) -> None:
 def test_update_company(db: Session) -> None:
     name = random_lower_string()
     isin = random_isin()
+    number_of_shares = random_number_of_shares()
     url = random_url()
     ticker = random_lower_string()
     ipo_date = random_date()
@@ -72,6 +80,7 @@ def test_update_company(db: Session) -> None:
     company_in = CompanyCreate(       
         name=name,
         isin=isin,
+        number_of_shares=number_of_shares,
         url=url,
         ticker=ticker,
         ipo_date=ipo_date,
@@ -80,19 +89,22 @@ def test_update_company(db: Session) -> None:
     company = crud.company.create(db=db, obj_in = company_in)
     name2 = random_lower_string()
     isin2 = random_isin()
+    number_of_shares2 = random_number_of_shares()
     url2 = random_url()
     ipo_date2 = random_date()
    
     company_update = CompanyUpdate(
         name=name2,
         isin=isin2,
+        number_of_shares=number_of_shares2,
         url=url2,
         ipo_date=ipo_date2,
-        )
+    )
     company2 = crud.company.update(db=db, db_obj=company, obj_in=company_update)
     assert company.id == company2.id
     assert company2.name == name2
     assert company2.isin == isin2
+    assert company2.number_of_shares == number_of_shares2
     assert company2.url == url2
     assert company.ticker == company2.ticker
     assert company2.ipo_date.strftime("%Y-%m-%d") == ipo_date2.strftime("%Y-%m-%d")
@@ -102,6 +114,7 @@ def test_update_company(db: Session) -> None:
 def test_delete_company(db: Session) -> None:
     name = random_lower_string()
     isin = random_isin()
+    number_of_shares = random_number_of_shares()
     url = random_url()
     ticker = random_lower_string()
     ipo_date = random_date()
@@ -110,6 +123,7 @@ def test_delete_company(db: Session) -> None:
     company_in = CompanyCreate(       
         name=name,
         isin=isin,
+        number_of_shares=number_of_shares,
         url=url,
         ticker=ticker,
         ipo_date=ipo_date,
@@ -122,6 +136,7 @@ def test_delete_company(db: Session) -> None:
     assert company2.id == company.id
     assert company2.name == name
     assert company2.isin == isin
+    assert company2.number_of_shares == number_of_shares
     assert company2.url == url
     assert company2.ticker == ticker
     assert company2.ipo_date.strftime("%Y-%m-%d") == ipo_date.strftime("%Y-%m-%d")

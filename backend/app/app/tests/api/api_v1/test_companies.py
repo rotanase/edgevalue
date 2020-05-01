@@ -10,12 +10,14 @@ from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_integer
 from app.tests.utils.utils import random_lower_string
 from app.tests.utils.utils import random_isin
+from app.tests.utils.utils import random_number_of_shares
 
 
 def test_create_company(client: TestClient, db: Session) -> None:
     data = {
         "name": random_lower_string(),
         "isin": random_isin(),
+        "number_of_shares": random_number_of_shares(),
         "url": random_url(),
         "ticker": random_lower_string(),
         "ipo_date": random_date().strftime("%Y-%m-%d"),
@@ -28,6 +30,7 @@ def test_create_company(client: TestClient, db: Session) -> None:
     content = response.json()
     assert content["name"] == data["name"]
     assert content["isin"] == data["isin"]
+    assert content["number_of_shares"] == data["number_of_shares"]
     assert content["url"] == data["url"]
     assert content["ticker"] == data["ticker"]
     assert content["ipo_date"] == data["ipo_date"]
@@ -44,6 +47,7 @@ def test_read_company(client: TestClient, db: Session) -> None:
     content = response.json()
     assert content["name"] == company.name
     assert content["isin"] == company.isin
+    assert content["number_of_shares"] == company.number_of_shares
     assert content["url"] == company.url
     assert content["ticker"] == company.ticker
     assert content["ipo_date"] == company.ipo_date.strftime("%Y-%m-%d")

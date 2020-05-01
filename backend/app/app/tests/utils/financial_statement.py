@@ -32,7 +32,7 @@ def create_random_financial_statement(db: Session) -> models.FinancialStatement:
     gross_profit = random_integer()
     operating_income = random_integer()
     profit_before_tax = random_integer()
-    net_profit = random_integer()
+    net_income = random_integer()
     
     financial_statement_in = FinancialStatementCreate(       
         period=period,
@@ -53,7 +53,7 @@ def create_random_financial_statement(db: Session) -> models.FinancialStatement:
         gross_profit=gross_profit,
         operating_income=operating_income,
         profit_before_tax=profit_before_tax,
-        net_profit=net_profit,
+        net_income=net_income,
         company_id=company_id
         )
     return crud.financial_statement.create(db=db, obj_in=financial_statement_in)

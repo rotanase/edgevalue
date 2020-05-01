@@ -33,6 +33,10 @@ def random_dividend_payout() -> float:
     return random.uniform(0, 20)
 
 
+def random_number_of_shares() -> int:
+    return random.randint(1, 99999999999)
+
+
 def random_integer() -> int:
     return random.randint(-99999999999, 99999999999)
 

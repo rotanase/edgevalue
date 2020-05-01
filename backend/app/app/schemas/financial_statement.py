@@ -27,7 +27,7 @@ class FinancialStatementBase(BaseModel):
     gross_profit: float = None
     operating_income: int = None
     profit_before_tax: int = None
-    net_profit: int = None
+    net_income: int = None
 
     company_id: int = None
 
