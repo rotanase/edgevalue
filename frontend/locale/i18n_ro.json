@@ -1,8 +1,11 @@
 {
     "app_title": "Edge Value",
     "login": "Autentificare",
-    "search_bar_initial_text": "Caută simbol",
+    "search_bar_initial_text": "Caută companie",
     "cancel_search_text": "Anulează",
     "no_search_result_text": "Nu a fost găsit niciun rezultat",
-    "data_could_not_be_fetched": "Datele nu au fost găsite"
+    "contact_us_text": "Contactează-ne",
+    "about_us_text": "Despre noi",
+    "home_search_bar_initial_text": "Introduceți nume / simbol / ISIN al unei companii",
+    "home_search_button_text": "Căutare"
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:edgevalue/views/layout_template.dart';
 import 'package:edgevalue/localization/app_translations.dart';
+import 'package:edgevalue/views/home_view/home_view.dart';
 import 'package:edgevalue/locator.dart';
 
 void main() {
@@ -27,6 +27,6 @@ class _EdgeValueState extends State<EdgeValue> {
       const Locale('en', ''),
       const Locale('ro', ''),
     ],
-    home: LayoutTemplate(),
+    home: HomeView(),
   );
 }

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:edgevalue/localization/app_translations.dart';
 import 'package:edgevalue/viewmodels/search_results_view_model.dart';
 
 class SearchBarDesktop extends StatefulWidget {
+  final double height, width, resultsOverlayWidth;
+  final String hintText;
+
+  // Default values are set for the navigation bar
+  SearchBarDesktop({
+    this.height = 30,
+    this.width = 250,
+    this.resultsOverlayWidth = 250 * 1.5,
+    this.hintText = '',
+  });
+
   @override
   _SearchBarDesktopState createState() => _SearchBarDesktopState();
 }
@@ -44,7 +54,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
       builder: (context) => Positioned(
         left: rBoxOffset.dx,
         top: rBoxOffset.dy + rBoxSize.height + 5.0,
-        width: rBoxSize.width * 1.5,
+        width: widget.resultsOverlayWidth,
         child: Material(
           elevation: 4.0,
           child: _waitingForResults ? LinearProgressIndicator() :
@@ -104,8 +114,8 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
-      width: 250,
+      height: widget.height,
+      width: widget.width,
       child: TextFormField(
         cursorColor: Colors.black,
         cursorWidth: 0.25,
@@ -117,7 +127,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
           ),
           enabledBorder: _searchBarOutlineBorder(),
           focusedBorder: _searchBarOutlineBorder(),
-          hintText: Translations.of(context).text('search_bar_initial_text'),
+          hintText: widget.hintText,
         ),
         onChanged: (tickerToSearch) {
           _waitingForResults = true;

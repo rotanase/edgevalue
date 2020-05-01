@@ -1,8 +1,11 @@
 {
     "app_title": "Edge Value",
     "login": "Login",
-    "search_bar_initial_text": "Search for a ticker",
+    "search_bar_initial_text": "Search for a company",
     "cancel_search_text": "Cancel",
     "no_search_result_text": "No results found",
-    "data_could_not_be_fetched": "Data could not be fetched"
+    "contact_us_text": "Contact Us",
+    "about_us_text": "About Us",
+    "home_search_bar_initial_text": "Type the name / ticker / ISIN of a company",
+    "home_search_button_text": "Search"
 }
