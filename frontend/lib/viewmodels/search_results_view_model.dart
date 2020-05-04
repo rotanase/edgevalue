@@ -16,15 +16,17 @@ class SearchResultsViewModel {
      * using `patternToSearch` string. As of now, filtering
      * is done in frontend.
      */
-    _searchResults = ListView.builder(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      itemCount: companies.length,
-      itemBuilder: (BuildContext context, int index) {
-        CompanyItemModel company = companies[index];
-        return company.matches(patternToSearch) ? company : Container(width: 0, height: 0);
-      },
-    );
+    if (companies != null) {
+      companies = companies.where(
+        (company) => company.matches(patternToSearch)
+      ).toList();
+      _searchResults = ListView.builder(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        itemCount: companies.length,
+        itemBuilder: (BuildContext context, int index) => companies[index],
+      );
+    } // TODO: else show `Couldn't fetch data from server` error
     notifyCallback();
   }
 }

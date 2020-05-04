@@ -5,12 +5,16 @@ class SearchBarDesktop extends StatefulWidget {
   final double height, width, resultsOverlayWidth;
   final String hintText;
 
+  // Used for the text field widget of this search bar.
+  final TextEditingController controller;
+
   // Default values are set for the navigation bar
   SearchBarDesktop({
     this.height = 30,
     this.width = 250,
     this.resultsOverlayWidth = 250 * 1.5,
     this.hintText = '',
+    this.controller,
   });
 
   @override
@@ -21,9 +25,6 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
 
   // Used to hide `_resultsOverlay` when this search bar looses focus.
   final FocusNode _focusNode = FocusNode();
-
-  // Used for the text field widget of this search bar.
-  final TextEditingController _textEditingController = TextEditingController();
 
   // Used as the ViewModel for this search bar.
   final SearchResultsViewModel _resultsViewModel = SearchResultsViewModel();
@@ -69,7 +70,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
    * if there is no input string from the user.
    */
   void _showResultsOverlayEntry() {
-    if (_textEditingController.text.isNotEmpty) {
+    if (widget.controller.text.isNotEmpty) {
       if (_resultsOverlayEntry == null) {
         _resultsOverlayEntry = _createResultsOverlayEntry();
         Overlay.of(context).insert(_resultsOverlayEntry);
@@ -96,7 +97,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
   @override
   void dispose() {
     _removeResultsOverlayEntry();
-    _textEditingController.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -129,16 +130,19 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
           focusedBorder: _searchBarOutlineBorder(),
           hintText: widget.hintText,
         ),
-        onChanged: (tickerToSearch) {
+        onChanged: (patternToSearch) {
           _waitingForResults = true;
           _showResultsOverlayEntry();
-          _resultsViewModel.getSearchResults(tickerToSearch, () {
+          _resultsViewModel.getSearchResults(patternToSearch, () {
             _waitingForResults = false;
             _resultsOverlayEntry?.markNeedsBuild();
           });
         },
+        onFieldSubmitted: (patternToSearch) {
+          // TODO: switch to company detalis view based on patternToSearch
+        },
         focusNode: _focusNode,
-        controller: _textEditingController,
+        controller: widget.controller,
       ),
     );
   }

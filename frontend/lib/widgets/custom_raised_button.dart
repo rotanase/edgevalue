@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomRaisedButton extends StatelessWidget {
-  CustomRaisedButton({this.text});
+  CustomRaisedButton({this.text, this.onPressed});
 
   final String text;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class CustomRaisedButton extends StatelessWidget {
       focusElevation: 0.0,
       highlightElevation: 0.0,
       color: Colors.black38.withOpacity(0.1),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(
         text,
         style: TextStyle(

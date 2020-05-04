@@ -1,3 +1,4 @@
+import 'package:edgevalue/views/company_view/company_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:edgevalue/localization/app_translations.dart';
@@ -27,6 +28,10 @@ class _EdgeValueState extends State<EdgeValue> {
       const Locale('en', ''),
       const Locale('ro', ''),
     ],
-    home: HomeView(),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => HomeView(),
+      '/company': (context) => CompanyView(),
+    },
   );
 }

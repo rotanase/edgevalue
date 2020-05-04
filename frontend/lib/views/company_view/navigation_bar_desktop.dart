@@ -22,7 +22,10 @@ class NavigationBarDesktop extends StatelessWidget {
               SizedBox(width: 15),
               NavigationBarItemDesktop(title: 'Ceva 3'),
               SizedBox(width: 15),
-              SearchBarDesktop(hintText: Translations.of(context).text('search_bar_initial_text')),
+              SearchBarDesktop(
+                hintText: Translations.of(context).text('search_bar_initial_text'),
+                controller: TextEditingController(), // TODO: save this controller for later use
+              ),
             ],
           ),
           Padding(

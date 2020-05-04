@@ -1,5 +1,5 @@
-import 'package:edgevalue/widgets/layout_template.dart';
 import 'package:flutter/material.dart';
+import 'package:edgevalue/widgets/layout_template.dart';
 
 import 'navigation_bar.dart';
 

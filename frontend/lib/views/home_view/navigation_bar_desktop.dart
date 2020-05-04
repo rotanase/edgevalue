@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:edgevalue/localization/app_translations.dart';
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar_item_desktop.dart';
+import 'package:edgevalue/localization/app_translations.dart';
 
 class NavigationBarDesktop extends StatelessWidget {
   @override
