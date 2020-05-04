@@ -1,9 +1,10 @@
-import 'package:edgevalue/views/company_view/company_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:edgevalue/localization/app_translations.dart';
-import 'package:edgevalue/views/home_view/home_view.dart';
 import 'package:edgevalue/locator.dart';
+import 'package:edgevalue/localization/app_translations.dart';
+import 'package:edgevalue/services/navigation_service.dart';
+import 'package:edgevalue/routing/router.dart';
+import 'package:edgevalue/routing/route_names.dart';
 
 void main() {
   setupLocator();
@@ -28,10 +29,8 @@ class _EdgeValueState extends State<EdgeValue> {
       const Locale('en', ''),
       const Locale('ro', ''),
     ],
-    initialRoute: '/',
-    routes: {
-      '/': (context) => HomeView(),
-      '/company': (context) => CompanyView(),
-    },
+    navigatorKey: locator<NavigationService>().navigatorKey,
+    onGenerateRoute: generateRoute,
+    initialRoute: HomeRoute,
   );
 }

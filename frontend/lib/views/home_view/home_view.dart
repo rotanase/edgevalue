@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:edgevalue/widgets/layout_template.dart';
 import 'package:edgevalue/widgets/custom_raised_button.dart';
 import 'package:edgevalue/localization/app_translations.dart';
+import 'package:edgevalue/locator.dart';
+import 'package:edgevalue/services/navigation_service.dart';
 
 import 'navigation_bar.dart';
 import 'logo.dart';
@@ -28,6 +30,8 @@ class HomeView extends StatelessWidget {
                 text: Translations.of(context).text('home_search_button_text'),
                 onPressed: () {
                   // TODO: switch to company detalis view based on _searchBar.controller.text
+                  locator<NavigationService>().navigateTo('company'); // TODO: check with the default navigator
+                  //Navigator.of(context).pushNamed('company');
                 },
               ),
             ],
