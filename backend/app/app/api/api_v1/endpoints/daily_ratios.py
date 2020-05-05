@@ -27,10 +27,13 @@ def create_daily_ratio(
     *,
     db: Session = Depends(deps.get_db),
     daily_ratio_in: schemas.DailyRatioCreate,
+    current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new daily ratio.
     """
+    if not crud.user.is_superuser(current_user):
+        raise HTTPException(status_code=400, detail="Not enough permissions")
     daily_ratio = crud.daily_ratio.create(db=db, obj_in=daily_ratio_in)
     return daily_ratio
 

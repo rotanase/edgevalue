@@ -10,7 +10,7 @@ from app.tests.utils.utils import random_integer
 from app.tests.utils.utils import random_float
 
 
-def test_create_value_metric(client: TestClient, db: Session) -> None:
+def test_create_value_metric(client: TestClient, superuser_token_headers: dict, db: Session) -> None:
     data = {
         "period": random_period(),
         "end_date": random_date().strftime("%Y-%m-%d"),
@@ -35,7 +35,7 @@ def test_create_value_metric(client: TestClient, db: Session) -> None:
         "working_capital": random_integer()
         }
 
-    response = client.post(f"{settings.API_V1_STR}/valuemetrics/", json=data)
+    response = client.post(f"{settings.API_V1_STR}/valuemetrics/", headers=superuser_token_headers, json=data)
 
     assert response.status_code == 200
     content = response.json()

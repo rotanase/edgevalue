@@ -7,14 +7,14 @@ from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_currency
 from app.tests.utils.utils import random_dividend_payout
 
-def test_create_dividend(client: TestClient, db: Session) -> None:
+def test_create_dividend(client: TestClient, superuser_token_headers: dict, db: Session) -> None:
     data = {
         "currency": random_currency(),
         "ex_dividend_date": random_date().strftime("%Y-%m-%d"),
         "pay_date": random_date().strftime("%Y-%m-%d"),
         "dividend_payout": random_dividend_payout()
     }
-    response = client.post(f"{settings.API_V1_STR}/dividends/", json=data)
+    response = client.post(f"{settings.API_V1_STR}/dividends/", headers=superuser_token_headers, json=data)
 
     assert response.status_code == 200
     content = response.json()

@@ -27,10 +27,13 @@ def create_value_metric(
     *,
     db: Session = Depends(deps.get_db),
     value_metric_in: schemas.ValueMetricCreate,
+    current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new value metric.
     """
+    if not crud.user.is_superuser(current_user):
+        raise HTTPException(status_code=400, detail="Not enough permissions")
     value_metric = crud.value_metric.create(db=db, obj_in=value_metric_in)
     return value_metric
 

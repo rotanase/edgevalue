@@ -27,10 +27,13 @@ def create_financial_statement(
     *,
     db: Session = Depends(deps.get_db),
     financial_statement_in: schemas.FinancialStatementCreate,
+    current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new financial statement.
     """
+    if not crud.user.is_superuser(current_user):
+        raise HTTPException(status_code=400, detail="Not enough permissions")
     financial_statement = crud.financial_statement.create(db=db, obj_in=financial_statement_in)
     return financial_statement
 

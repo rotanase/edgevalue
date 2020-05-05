@@ -13,7 +13,7 @@ from app.tests.utils.utils import random_isin
 from app.tests.utils.utils import random_number_of_shares
 
 
-def test_create_company(client: TestClient, db: Session) -> None:
+def test_create_company(client: TestClient, superuser_token_headers: dict, db: Session) -> None:
     data = {
         "name": random_lower_string(),
         "isin": random_isin(),
@@ -24,7 +24,7 @@ def test_create_company(client: TestClient, db: Session) -> None:
         "stock_exchange": random_lower_string()
         }
 
-    response = client.post(f"{settings.API_V1_STR}/companies/", json=data)
+    response = client.post(f"{settings.API_V1_STR}/companies/", headers=superuser_token_headers, json=data)
 
     assert response.status_code == 200
     content = response.json()

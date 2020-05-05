@@ -27,10 +27,13 @@ def create_company(
     *,
     db: Session = Depends(deps.get_db),
     company_in: schemas.CompanyCreate,
+    current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new company.
     """
+    if not crud.user.is_superuser(current_user):
+        raise HTTPException(status_code=400, detail="Not enough permissions")
     company = crud.company.create(db=db, obj_in=company_in)
     return company
 

@@ -27,10 +27,13 @@ def create_dividend(
     *,
     db: Session = Depends(deps.get_db),
     dividend_in: schemas.DividendCreate,
+    current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new dividend.
     """
+    if not crud.user.is_superuser(current_user):
+        raise HTTPException(status_code=400, detail="Not enough permissions")
     dividend = crud.dividend.create(db=db, obj_in=dividend_in)
     return dividend
 
