@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CompanyItemModel extends StatefulWidget {
   CompanyItemModel({
+    this.id,
     this.name = '',
     this.ticker = '',
     this.isin = '',
@@ -10,11 +11,13 @@ class CompanyItemModel extends StatefulWidget {
   });
 
   CompanyItemModel.fromJson(Map<String, dynamic> map) : this(
+    id: map['id'],
     name: map['name'],
     ticker: map['ticker'],
     isin: map['isin'],
   );
 
+  final int id;
   final String name, ticker, isin;
   final Color color, hoverColor;
 

@@ -9,8 +9,7 @@ class Api {
     var response = await http.get('$_apiEndpoint/companies');
     if (response.statusCode == 200) {
       var companies = (json.decode(response.body) as List)
-        .map((company) => CompanyItemModel.fromJson(company))
-        .toList();
+        .map((company) => CompanyItemModel.fromJson(company)).toList();
       return companies;
     }
 
