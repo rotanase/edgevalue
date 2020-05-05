@@ -37,8 +37,8 @@ def random_number_of_shares() -> int:
     return random.randint(1, 99999999999)
 
 
-def random_eps() -> float:
-    return random.uniform(-50, 50)
+def random_float() -> float:
+    return random.uniform(-100, -100)
 
 
 def random_integer() -> int:

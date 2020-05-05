@@ -8,7 +8,7 @@ from app.tests.utils.utils import random_url
 from app.tests.utils.utils import random_period
 from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_integer
-from app.tests.utils.utils import random_eps
+from app.tests.utils.utils import random_float
 
 
 def test_create_financial_statement(client: TestClient, db: Session) -> None:
@@ -35,6 +35,8 @@ def test_create_financial_statement(client: TestClient, db: Session) -> None:
         "cost_of_revenue": random_integer(),
         "costs_of_goods_sold": random_integer(),
         "gross_profit": random_integer(),
+        "ebitda": random_integer(),
+        "ebit": random_integer(),
         "operating_income": random_integer(),
         "interest_expense": random_integer(),
         "profit_before_tax": random_integer(),
@@ -42,7 +44,7 @@ def test_create_financial_statement(client: TestClient, db: Session) -> None:
         "depreciation": random_integer(),
         "amortization": random_integer(),
         "net_income": random_integer(),
-        "earnings_per_share": random_eps()
+        "earnings_per_share": random_float()
         }
 
     response = client.post(f"{settings.API_V1_STR}/financialstatements/", json=data)
@@ -71,6 +73,8 @@ def test_create_financial_statement(client: TestClient, db: Session) -> None:
     assert content["cost_of_revenue"] == data["cost_of_revenue"]
     assert content["costs_of_goods_sold"] == data["costs_of_goods_sold"]
     assert content["gross_profit"] == data["gross_profit"]
+    assert content["ebitda"] == data["ebitda"]
+    assert content["ebit"] == data["ebit"]
     assert content["operating_income"] == data["operating_income"]
     assert content["interest_expense"] == data["interest_expense"]
     assert content["profit_before_tax"] == data["profit_before_tax"]
@@ -111,6 +115,8 @@ def test_read_financial_statement(client: TestClient, db: Session) -> None:
     assert content["cost_of_revenue"] == financial_statement.cost_of_revenue
     assert content["costs_of_goods_sold"] == financial_statement.costs_of_goods_sold
     assert content["gross_profit"] == financial_statement.gross_profit
+    assert content["ebitda"] == financial_statement.ebitda
+    assert content["ebit"] == financial_statement.ebit
     assert content["operating_income"] == financial_statement.operating_income
     assert content["interest_expense"] == financial_statement.interest_expense
     assert content["profit_before_tax"] == financial_statement.profit_before_tax

@@ -39,6 +39,8 @@ class FinancialStatement(Base):
     cost_of_revenue = Column(BigInteger)
     costs_of_goods_sold = Column(BigInteger)
     gross_profit = Column(BigInteger)
+    ebitda = Column(BigInteger)
+    ebit = Column(BigInteger)
     operating_income = Column(BigInteger)
     interest_expense = Column(BigInteger) 
     profit_before_tax = Column(BigInteger)

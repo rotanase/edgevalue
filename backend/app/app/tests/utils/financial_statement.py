@@ -9,7 +9,7 @@ from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_url
 from app.tests.utils.utils import random_currency
 from app.tests.utils.utils import random_period
-from app.tests.utils.utils import random_eps
+from app.tests.utils.utils import random_float
 
 
 def create_random_financial_statement(db: Session) -> models.FinancialStatement:
@@ -37,6 +37,8 @@ def create_random_financial_statement(db: Session) -> models.FinancialStatement:
     cost_of_revenue = random_integer()
     costs_of_goods_sold = random_integer()
     gross_profit = random_integer()
+    ebitda = random_integer()
+    ebit = random_integer()
     operating_income = random_integer()
     interest_expense = random_integer()
     profit_before_tax = random_integer()
@@ -44,7 +46,7 @@ def create_random_financial_statement(db: Session) -> models.FinancialStatement:
     depreciation = random_integer()
     amortization = random_integer()
     net_income = random_integer()
-    earnings_per_share = random_eps()
+    earnings_per_share = random_float()
     
     financial_statement_in = FinancialStatementCreate(       
         period=period,
@@ -69,6 +71,8 @@ def create_random_financial_statement(db: Session) -> models.FinancialStatement:
         cost_of_revenue=cost_of_revenue,
         costs_of_goods_sold=costs_of_goods_sold,
         gross_profit=gross_profit,
+        ebitda=ebitda,
+        ebit=ebit,
         operating_income=operating_income,
         interest_expense=interest_expense,
         profit_before_tax=profit_before_tax,

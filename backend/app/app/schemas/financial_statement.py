@@ -34,7 +34,9 @@ class FinancialStatementBase(BaseModel):
     total_revenues: int = None
     cost_of_revenue: int = None
     costs_of_goods_sold: int = None
-    gross_profit: float = None
+    gross_profit: int = None
+    ebitda: int = None
+    ebit: int = None
     operating_income: int = None
     interest_expense: int = None
     profit_before_tax: int = None

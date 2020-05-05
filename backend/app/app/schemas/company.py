@@ -6,6 +6,9 @@ from pydantic import BaseModel, HttpUrl
 
 from app.schemas.financial_statement import FinancialStatement
 from app.schemas.dividend import Dividend
+from app.schemas.value_metric import ValueMetric
+from app.schemas.daily_ratio import DailyRatio
+
 
 
 # Shared properties
@@ -19,6 +22,8 @@ class CompanyBase(BaseModel):
     stock_exchange: str = None
     financial_statements: List[FinancialStatement] = []
     dividends: List[Dividend] = []
+    value_metrics: List[ValueMetric] = []
+    daily_ratios: List[DailyRatio] = []
 
 
 # Properties to receive on company creation

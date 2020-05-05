@@ -11,6 +11,12 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from .dividend import Dividend  # noqa: F401
 
+if TYPE_CHECKING:
+    from .value_metric import ValueMetric  # noqa: F401
+    
+if TYPE_CHECKING:
+    from .daily_ratio import DailyRatio  # noqa: F401
+
 
 class Company(Base):
     __tablename__ = 'company'
@@ -26,3 +32,5 @@ class Company(Base):
 
     financial_statements = relationship("FinancialStatement", back_populates="company")
     dividends = relationship("Dividend", back_populates="company")
+    value_metrics = relationship("ValueMetric", back_populates="company")
+    daily_ratios = relationship("DailyRatio", back_populates="company")

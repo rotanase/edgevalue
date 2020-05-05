@@ -9,7 +9,7 @@ from app.tests.utils.utils import random_date
 from app.tests.utils.utils import random_url
 from app.tests.utils.utils import random_currency
 from app.tests.utils.utils import random_period
-from app.tests.utils.utils import random_eps
+from app.tests.utils.utils import random_float
 
 
 def test_create_financial_statement(db: Session) -> None:
@@ -37,6 +37,8 @@ def test_create_financial_statement(db: Session) -> None:
     cost_of_revenue = random_integer()
     costs_of_goods_sold = random_integer()
     gross_profit = random_integer()
+    ebitda = random_integer()
+    ebit = random_integer()
     operating_income = random_integer()
     interest_expense = random_integer()
     profit_before_tax = random_integer()
@@ -44,7 +46,7 @@ def test_create_financial_statement(db: Session) -> None:
     depreciation = random_integer()
     amortization = random_integer()
     net_income = random_integer()
-    earnings_per_share = random_eps()
+    earnings_per_share = random_float()
     
     financial_statement_in = FinancialStatementCreate(       
         period=period,
@@ -69,6 +71,8 @@ def test_create_financial_statement(db: Session) -> None:
         cost_of_revenue=cost_of_revenue,
         costs_of_goods_sold=costs_of_goods_sold,
         gross_profit=gross_profit,
+        ebitda=ebitda,
+        ebit=ebit,
         operating_income=operating_income,
         interest_expense=interest_expense,
         profit_before_tax=profit_before_tax,
@@ -102,6 +106,8 @@ def test_create_financial_statement(db: Session) -> None:
     assert financial_statement.cost_of_revenue == cost_of_revenue
     assert financial_statement.costs_of_goods_sold == costs_of_goods_sold
     assert financial_statement.gross_profit == gross_profit
+    assert financial_statement.ebitda == ebitda
+    assert financial_statement.ebit == ebit
     assert financial_statement.operating_income == operating_income
     assert financial_statement.interest_expense == interest_expense
     assert financial_statement.profit_before_tax == profit_before_tax
@@ -138,6 +144,8 @@ def test_get_financial_statement(db: Session) -> None:
     cost_of_revenue = random_integer()
     costs_of_goods_sold = random_integer()
     gross_profit = random_integer()
+    ebitda = random_integer()
+    ebit = random_integer()
     operating_income = random_integer()
     interest_expense = random_integer()
     profit_before_tax = random_integer()
@@ -145,7 +153,7 @@ def test_get_financial_statement(db: Session) -> None:
     depreciation = random_integer()
     amortization = random_integer()
     net_income = random_integer()
-    earnings_per_share = random_eps()
+    earnings_per_share = random_float()
 
     financial_statement_in = FinancialStatementCreate(       
         period=period,
@@ -170,6 +178,8 @@ def test_get_financial_statement(db: Session) -> None:
         cost_of_revenue=cost_of_revenue,
         costs_of_goods_sold=costs_of_goods_sold,
         gross_profit=gross_profit,
+        ebitda=ebitda,
+        ebit=ebit,
         operating_income=operating_income,
         interest_expense=interest_expense,
         profit_before_tax=profit_before_tax,
@@ -205,6 +215,8 @@ def test_get_financial_statement(db: Session) -> None:
     assert financial_statement.cost_of_revenue == stored_financial_statement.cost_of_revenue
     assert financial_statement.costs_of_goods_sold == stored_financial_statement.costs_of_goods_sold
     assert financial_statement.gross_profit == stored_financial_statement.gross_profit
+    assert financial_statement.ebitda == stored_financial_statement.ebitda
+    assert financial_statement.ebit == stored_financial_statement.ebit
     assert financial_statement.operating_income == stored_financial_statement.operating_income
     assert financial_statement.interest_expense == stored_financial_statement.interest_expense
     assert financial_statement.profit_before_tax == stored_financial_statement.profit_before_tax
@@ -241,6 +253,8 @@ def test_update_financial_statement(db: Session) -> None:
     cost_of_revenue = random_integer()
     costs_of_goods_sold = random_integer()
     gross_profit = random_integer()
+    ebitda = random_integer()
+    ebit = random_integer()
     operating_income = random_integer()
     interest_expense = random_integer()
     profit_before_tax = random_integer()
@@ -248,7 +262,7 @@ def test_update_financial_statement(db: Session) -> None:
     depreciation = random_integer()
     amortization = random_integer()
     net_income = random_integer()
-    earnings_per_share = random_eps()
+    earnings_per_share = random_float()
     
     financial_statement_in = FinancialStatementCreate(       
         period=period,
@@ -273,6 +287,8 @@ def test_update_financial_statement(db: Session) -> None:
         cost_of_revenue=cost_of_revenue,
         costs_of_goods_sold=costs_of_goods_sold,
         gross_profit=gross_profit,
+        ebitda=ebitda,
+        ebit=ebit,
         operating_income=operating_income,
         interest_expense=interest_expense,
         profit_before_tax=profit_before_tax,
@@ -324,6 +340,8 @@ def test_update_financial_statement(db: Session) -> None:
     assert financial_statement.cost_of_revenue == financial_statement2.cost_of_revenue
     assert financial_statement.costs_of_goods_sold == financial_statement2.costs_of_goods_sold
     assert financial_statement.gross_profit == financial_statement2.gross_profit
+    assert financial_statement.ebitda == financial_statement2.ebitda
+    assert financial_statement.ebit == financial_statement2.ebit
     assert financial_statement.operating_income == financial_statement2.operating_income
     assert financial_statement.interest_expense == financial_statement2.interest_expense
     assert financial_statement.profit_before_tax == financial_statement2.profit_before_tax
@@ -360,6 +378,8 @@ def test_delete_financial_statement(db: Session) -> None:
     cost_of_revenue = random_integer()
     costs_of_goods_sold = random_integer()
     gross_profit = random_integer()
+    ebitda = random_integer()
+    ebit = random_integer()
     operating_income = random_integer()
     interest_expense = random_integer()
     profit_before_tax = random_integer()
@@ -367,7 +387,7 @@ def test_delete_financial_statement(db: Session) -> None:
     depreciation = random_integer()
     amortization = random_integer()
     net_income = random_integer()
-    earnings_per_share = random_eps()
+    earnings_per_share = random_float()
 
     financial_statement_in = FinancialStatementCreate(       
         period=period,
@@ -392,6 +412,8 @@ def test_delete_financial_statement(db: Session) -> None:
         cost_of_revenue=cost_of_revenue,
         costs_of_goods_sold=costs_of_goods_sold,
         gross_profit=gross_profit,
+        ebitda=ebitda,
+        ebit=ebit,
         operating_income=operating_income,
         interest_expense=interest_expense,
         profit_before_tax=profit_before_tax,
@@ -429,6 +451,8 @@ def test_delete_financial_statement(db: Session) -> None:
     assert financial_statement2.cost_of_revenue == cost_of_revenue
     assert financial_statement2.costs_of_goods_sold == costs_of_goods_sold
     assert financial_statement2.gross_profit == gross_profit
+    assert financial_statement2.ebitda == ebitda
+    assert financial_statement2.ebit == ebit
     assert financial_statement2.operating_income == operating_income
     assert financial_statement2.interest_expense == interest_expense
     assert financial_statement2.profit_before_tax == profit_before_tax
