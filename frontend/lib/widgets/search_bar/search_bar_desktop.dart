@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:edgevalue/viewmodels/search_results_view_model.dart';
+import 'package:edgevalue/viewmodels/search_bar_view_model.dart';
 
 class SearchBarDesktop extends StatefulWidget {
   final double height, width, resultsOverlayWidth;
   final String hintText;
 
-  // Used for the text field widget of this search bar.
-  final TextEditingController controller;
+  // Used as the ViewModel for this search bar.
+  final SearchBarViewModel viewModel;
 
   // Default values are set for the navigation bar
   SearchBarDesktop({
@@ -14,7 +14,7 @@ class SearchBarDesktop extends StatefulWidget {
     this.width = 250,
     this.resultsOverlayWidth = 250 * 1.5,
     this.hintText = '',
-    this.controller,
+    @required this.viewModel,
   });
 
   @override
@@ -26,8 +26,8 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
   // Used to hide `_resultsOverlay` when this search bar looses focus.
   final FocusNode _focusNode = FocusNode();
 
-  // Used as the ViewModel for this search bar.
-  final SearchResultsViewModel _resultsViewModel = SearchResultsViewModel();
+  // Used for the text field widget of this search bar.
+  final TextEditingController _controller = TextEditingController();
 
   // An overlay in which search results are shown.
   OverlayEntry _resultsOverlayEntry;
@@ -59,7 +59,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
         child: Material(
           elevation: 4.0,
           child: _waitingForResults ? LinearProgressIndicator() :
-          (_resultsViewModel?.searchResults ?? LinearProgressIndicator()),
+          (widget.viewModel?.searchResults ?? LinearProgressIndicator()),
         ),
       ),
     );
@@ -70,7 +70,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
    * if there is no input string from the user.
    */
   void _showResultsOverlayEntry() {
-    if (widget.controller.text.isNotEmpty) {
+    if (_controller.text.isNotEmpty) {
       if (_resultsOverlayEntry == null) {
         _resultsOverlayEntry = _createResultsOverlayEntry();
         Overlay.of(context).insert(_resultsOverlayEntry);
@@ -97,7 +97,6 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
   @override
   void dispose() {
     _removeResultsOverlayEntry();
-    widget.controller.dispose();
     super.dispose();
   }
 
@@ -133,7 +132,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
         onChanged: (patternToSearch) {
           _waitingForResults = true;
           _showResultsOverlayEntry();
-          _resultsViewModel.getSearchResults(patternToSearch, () {
+          widget.viewModel.getSearchResults(patternToSearch, () {
             _waitingForResults = false;
             _resultsOverlayEntry?.markNeedsBuild();
           });
@@ -142,7 +141,7 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
           // TODO: switch to company detalis view based on patternToSearch
         },
         focusNode: _focusNode,
-        controller: widget.controller,
+        controller: _controller,
       ),
     );
   }

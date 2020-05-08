@@ -15,4 +15,13 @@ class Api {
 
     return null;
   }
+
+  Future<dynamic> getCompanyData(int companyIndex) async {
+    var response = await http.get('$_apiEndpoint/companies/$companyIndex');
+    if (response.statusCode == 200) {
+      return CompanyItemModel.fromJson(json.decode(response.body));
+    }
+
+    return null;
+  }
 }

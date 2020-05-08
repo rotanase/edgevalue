@@ -2,26 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:edgevalue/routing/route_names.dart';
 import 'package:edgevalue/views/home_view/home_view.dart';
 import 'package:edgevalue/views/company_view/company_view.dart';
+import 'package:edgevalue/datamodels/routing_data.dart';
+import 'package:edgevalue/extensions/string_extensions.dart';
 
-Route<dynamic> generateRoute(RouteSettings settings) {
-  switch (settings.name) {
+Route<dynamic> generateRoute(RouteSettings routeSettings) {
+  RoutingData routingData = routeSettings.name.getRoutingData;
+
+  switch (routingData.route) {
     case HomeRoute:
-      return _getPageRoute(HomeView());
+      return _getPageRoute(routeSettings, HomeView());
     case CompanyRoute:
-      return _getPageRoute(CompanyView());
+      int companyId = int.tryParse(routingData['id']);
+      return _getPageRoute(routeSettings, CompanyView(companyId: companyId,));
     default:
-      return null; // TODO: Add a custom not found page
+      return null;
   }
 }
 
-PageRoute _getPageRoute(Widget child) {
-  return _NoAnimationPageRoute(child: child);
+/*
+ * We are creating a new `PageRoute`, so we have to
+ * pass it the current `RouteSettings`.
+ */
+PageRoute _getPageRoute(RouteSettings settings, Widget child) {
+  return _NoAnimationPageRoute(
+    child: child,
+    settings: settings
+  );
 }
 
 class _NoAnimationPageRoute extends PageRouteBuilder {
   final Widget child;
+  final RouteSettings settings;
 
-  _NoAnimationPageRoute({this.child}) : super(
+  _NoAnimationPageRoute({this.child, this.settings}) : super(
     pageBuilder: (
       BuildContext context,
       Animation<double> animation,
@@ -36,5 +49,6 @@ class _NoAnimationPageRoute extends PageRouteBuilder {
       opacity: animation,
       child: child,
     ),
+    settings: settings,
   );
 }
