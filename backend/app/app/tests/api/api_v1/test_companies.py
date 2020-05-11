@@ -38,18 +38,18 @@ def test_create_company(client: TestClient, superuser_token_headers: dict, db: S
     assert "id" in content
 
 
-def test_read_company(client: TestClient, db: Session) -> None:
+def test_read_company_by_ticker(client: TestClient, db: Session) -> None:
     company = create_random_company(db)
     
-    response = client.get(f"{settings.API_V1_STR}/companies/{company.id}")
+    response = client.get(f"{settings.API_V1_STR}/companies/{company.ticker}")
 
     assert response.status_code == 200
     content = response.json()
+    assert content["id"] == company.id
     assert content["name"] == company.name
     assert content["isin"] == company.isin
     assert content["number_of_shares"] == company.number_of_shares
     assert content["url"] == company.url
-    assert content["ticker"] == company.ticker
     assert content["ipo_date"] == company.ipo_date.strftime("%Y-%m-%d")
     assert content["stock_exchange"] == company.stock_exchange
-    assert content["id"] == company.id
+    assert content["ticker"] == company.ticker

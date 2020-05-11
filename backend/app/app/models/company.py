@@ -26,7 +26,7 @@ class Company(Base):
     isin = Column(String, unique=True)
     number_of_shares = Column(BigInteger)
     url = Column(String, unique=True)
-    ticker = Column(String)
+    ticker = Column(String, unique=True, index=True)
     ipo_date = Column(DateTime)
     stock_exchange = Column(String)
 

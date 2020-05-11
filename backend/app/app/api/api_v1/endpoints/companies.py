@@ -58,16 +58,16 @@ def update_company(
     return company
 
 
-@router.get("/{id}", response_model=schemas.Company)
-def read_company(
+@router.get("/{ticker}", response_model=schemas.Company)
+def read_company_by_ticker(
     *,
     db: Session = Depends(deps.get_db),
-    id: int,
+    ticker: str,
 ) -> Any:
     """
-    Get company by ID.
+    Get company by ticker.
     """
-    company = crud.company.get(db=db, id=id)
+    company = crud.company.get_by_ticker(db=db, ticker=ticker)
     if not company:
         raise HTTPException(status_code=404, detail="Company not found")
     return company
