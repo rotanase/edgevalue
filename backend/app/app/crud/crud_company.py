@@ -11,7 +11,7 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, CompanyUpdate]):
     def get_by_ticker(
         self, db:Session, *, ticker: str
     ) -> Company:
-        return (db.query(self.model).filter(Company.ticker == ticker).first())
+        return (db.query(self.model).filter(Company.ticker == ticker.upper()).first())
 
 
 company = CRUDCompany(Company)
