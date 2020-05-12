@@ -7,5 +7,6 @@
     "contact_us_text": "Contact Us",
     "about_us_text": "About Us",
     "home_search_bar_initial_text": "Type the name / ticker / ISIN of a company",
-    "home_search_button_text": "Search"
+    "home_search_button_text": "Search",
+    "server_not_reachable_text": "Server not reachable at the momet, please try again later."
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:edgevalue/localization/app_translations.dart';
 import 'package:edgevalue/widgets/navigation_bar/navigation_bar_item_desktop.dart';
 import 'package:edgevalue/widgets/search_bar/search_bar_desktop.dart';
-import 'package:edgevalue/viewmodels/search_bar_view_model.dart';
 
 import 'navigation_bar_logo.dart';
 
@@ -25,7 +24,7 @@ class NavigationBarDesktop extends StatelessWidget {
               SizedBox(width: 15),
               SearchBarDesktop(
                 hintText: Translations.of(context).text('search_bar_initial_text'),
-                viewModel: SearchBarViewModel(), // TODO: save this controller for later use
+                controller: TextEditingController(), // TODO: save this controller for later use
               ),
             ],
           ),

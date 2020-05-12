@@ -6,16 +6,15 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'navigation_bar.dart';
 
 class CompanyView extends StatelessWidget {
-  final int companyId;
-
-  const CompanyView({Key key, @required this.companyId}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    print('CompanyView Builder');
     return ViewModelProvider<CompanyViewModel>.withConsumer(
       viewModelBuilder: () => CompanyViewModel(),
-      onModelReady: (model) => model.getCompanyData(companyId),
-      builder: (context, model, child) => LayoutTemplate(
+      onModelReady: (model) => model.getCompanyByUri(
+        ModalRoute.of(context).settings.name
+      ),
+      builder: (context, model, child) {  print('CompanyView with Model Builder'); return LayoutTemplate(
         navigationBar: NavigationBar(),
         body: Center(
           child: model?.companyName == null
@@ -25,7 +24,7 @@ class CompanyView extends StatelessWidget {
               style: TextStyle(fontSize: 40),
             ),
         ),
-      ),
+      );}
     );
   }
 }

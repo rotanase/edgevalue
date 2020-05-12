@@ -8,15 +8,13 @@ import 'package:edgevalue/extensions/string_extensions.dart';
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   RoutingData routingData = routeSettings.name.getRoutingData;
 
-  switch (routingData.route) {
-    case HomeRoute:
-      return _getPageRoute(routeSettings, HomeView());
-    case CompanyRoute:
-      int companyId = int.tryParse(routingData['id']);
-      return _getPageRoute(routeSettings, CompanyView(companyId: companyId,));
-    default:
-      return null;
+  if (routingData.route.startsWith(HomeRoute)) {
+    return _getPageRoute(routeSettings, HomeView());
+  } else if (routingData.route.startsWith(CompaniesRoute)) {
+    return _getPageRoute(routeSettings, CompanyView());
   }
+
+  return null; // TODO: Add `Not Found` page
 }
 
 /*

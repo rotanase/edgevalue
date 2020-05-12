@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:edgevalue/viewmodels/search_bar_view_model.dart';
 
 class SearchBarDesktop extends StatefulWidget {
-  final double height, width, resultsOverlayWidth;
   final String hintText;
-
-  // Used as the ViewModel for this search bar.
-  final SearchBarViewModel viewModel;
+  final double height, width, resultsOverlayWidth;
+  final TextEditingController controller;
 
   // Default values are set for the navigation bar
   SearchBarDesktop({
@@ -14,7 +12,7 @@ class SearchBarDesktop extends StatefulWidget {
     this.width = 250,
     this.resultsOverlayWidth = 250 * 1.5,
     this.hintText = '',
-    @required this.viewModel,
+    @required this.controller,
   });
 
   @override
@@ -22,30 +20,15 @@ class SearchBarDesktop extends StatefulWidget {
 }
 
 class _SearchBarDesktopState extends State<SearchBarDesktop> {
-
-  // Used to hide `_resultsOverlay` when this search bar looses focus.
-  final FocusNode _focusNode = FocusNode();
-
-  // Used for the text field widget of this search bar.
-  final TextEditingController _controller = TextEditingController();
+  TextEditingController get controller => widget.controller;
+  
+  // `ModelView` for this search bar.
+  SearchBarViewModel _model = SearchBarViewModel();
 
   // An overlay in which search results are shown.
   OverlayEntry _resultsOverlayEntry;
-  bool _waitingForResults = true;
 
-  /*
-   * Helper method to remove `_resultsOverlayEntry`.
-   * Always set it to null if you delete it otherwise.
-   */
-  void _removeResultsOverlayEntry() {
-    _resultsOverlayEntry?.remove();
-    _resultsOverlayEntry = null;
-  }
-
-  /*
-   * Helper method, it creates an overlay entry which contains
-   * search results. Called by _showResultsOverlayEntry().
-   */
+  // Builder for the overlay entry which contains search results.
   OverlayEntry _createResultsOverlayEntry() {
     RenderBox rBox = context.findRenderObject();
     Offset rBoxOffset = rBox.localToGlobal(Offset.zero);
@@ -56,21 +39,35 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
         left: rBoxOffset.dx,
         top: rBoxOffset.dy + rBoxSize.height + 5.0,
         width: widget.resultsOverlayWidth,
-        child: Material(
-          elevation: 4.0,
-          child: _waitingForResults ? LinearProgressIndicator() :
-          (widget.viewModel?.searchResults ?? LinearProgressIndicator()),
+        child: MouseRegion(
+          onEnter: (_) => _model.mouseHoveringResultsOverlayEntry = true,
+          onExit: (_) => _model.mouseHoveringResultsOverlayEntry = false,
+          child: GestureDetector(
+            onTap: _model.onResultsOverlayEntryTap,
+            child: Material(
+              elevation: 4.0,
+              child: _model.waitingForResults
+              ? LinearProgressIndicator()
+              : _model.searchResultsListView,
+            ),
+          ),
         ),
       ),
     );
   }
 
+  // Always remove the `_resultsOverlayEntry` using this method.
+  void _removeResultsOverlayEntry() {
+    _resultsOverlayEntry?.remove();
+    _resultsOverlayEntry = null;
+  }
+  
   /*
    * Creates / Updates the results overlay, or remove it
    * if there is no input string from the user.
    */
-  void _showResultsOverlayEntry() {
-    if (_controller.text.isNotEmpty) {
+  void _updateResultsOverlayEntry() {
+    if (controller.text.isNotEmpty) {
       if (_resultsOverlayEntry == null) {
         _resultsOverlayEntry = _createResultsOverlayEntry();
         Overlay.of(context).insert(_resultsOverlayEntry);
@@ -85,10 +82,10 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
   @override
   void initState() {
     super.initState();
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        _showResultsOverlayEntry();
-      } else {
+    _model.searchBarfocusNode.addListener(() {
+      if (_model.searchBarfocusNode.hasFocus) {
+        _updateResultsOverlayEntry();
+      } else if (!_model.mouseHoveringResultsOverlayEntry) {
         _removeResultsOverlayEntry();
       }
     });
@@ -116,32 +113,33 @@ class _SearchBarDesktopState extends State<SearchBarDesktop> {
     return Container(
       height: widget.height,
       width: widget.width,
-      child: TextFormField(
-        cursorColor: Colors.black,
-        cursorWidth: 0.25,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.zero,
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.grey[600],
+      child: RawKeyboardListener(
+        focusNode: _model.keyboadListenerfocusNode,
+        onKey: (event) => _model.onKey(controller.text, event),
+        child: TextFormField(
+          cursorColor: Colors.black,
+          cursorWidth: 0.25,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.zero,
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.grey[600],
+            ),
+            enabledBorder: _searchBarOutlineBorder(),
+            focusedBorder: _searchBarOutlineBorder(),
+            hintText: widget.hintText,
           ),
-          enabledBorder: _searchBarOutlineBorder(),
-          focusedBorder: _searchBarOutlineBorder(),
-          hintText: widget.hintText,
+          onChanged: (inputText) {
+            _updateResultsOverlayEntry();
+            _model.getSearchResults(
+              inputText,
+              () => _resultsOverlayEntry?.markNeedsBuild(),
+            );
+          },
+          onFieldSubmitted: _model.onFieldSubmitted,
+          focusNode: _model.searchBarfocusNode,
+          controller: controller,
         ),
-        onChanged: (patternToSearch) {
-          _waitingForResults = true;
-          _showResultsOverlayEntry();
-          widget.viewModel.getSearchResults(patternToSearch, () {
-            _waitingForResults = false;
-            _resultsOverlayEntry?.markNeedsBuild();
-          });
-        },
-        onFieldSubmitted: (patternToSearch) {
-          // TODO: switch to company detalis view based on patternToSearch
-        },
-        focusNode: _focusNode,
-        controller: _controller,
       ),
     );
   }

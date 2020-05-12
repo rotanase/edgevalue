@@ -16,8 +16,8 @@ class Api {
     return null;
   }
 
-  Future<dynamic> getCompanyData(int companyIndex) async {
-    var response = await http.get('$_apiEndpoint/companies/$companyIndex');
+  Future<dynamic> getCompanyData(String companyTicker) async {
+    var response = await http.get('$_apiEndpoint/companies/$companyTicker');
     if (response.statusCode == 200) {
       return CompanyItemModel.fromJson(json.decode(response.body));
     }

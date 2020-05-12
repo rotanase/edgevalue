@@ -7,5 +7,6 @@
     "contact_us_text": "Contactează-ne",
     "about_us_text": "Despre noi",
     "home_search_bar_initial_text": "Introduceți nume / simbol / ISIN al unei companii",
-    "home_search_button_text": "Căutare"
+    "home_search_button_text": "Căutare",
+    "server_not_reachable_text": "Nu se poate stabili conexiunea către server, vă rugăm încercați mai târziu."
 }
